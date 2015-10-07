@@ -1051,18 +1051,11 @@ function title(doc) {
 }
 
 
-function scenarios(docs){
+function scenarios(docs, urlPrefix){
   var specs = [];
 
-  specs.push('describe("angular+jqlite", function() {');
-  appendSpecs('index-nocache.html#!/');
-  specs.push('});');
-
-  specs.push('');
-  specs.push('');
-
-  specs.push('describe("angular+jquery", function() {');
-  appendSpecs('index-jq-nocache.html#!/');
+  specs.push('describe("angularlibcom", function() {');
+  appendSpecs(urlPrefix);
   specs.push('});');
 
   return specs.join('\n');
@@ -1071,7 +1064,7 @@ function scenarios(docs){
     docs.forEach(function(doc){
       specs.push('  describe("' + doc.section + '/' + doc.id + '", function() {');
       specs.push('    beforeEach(function() {');
-      specs.push('      browser().navigateTo("' + urlPrefix + doc.section + '/' + doc.id + '");');
+      specs.push('      browser.driver.get("' + urlPrefix + doc.section + '/' + doc.id + '");');
       specs.push('    });');
       specs.push('  ');
       doc.scenarios.forEach(function(scenario){

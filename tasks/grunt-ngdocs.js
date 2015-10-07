@@ -30,6 +30,8 @@ module.exports = function(grunt) {
         done = this.async(),
         options = this.options({
           dest: 'docs/',
+          testingUrlPrefix: '/index.html#',
+          scenarioDest: '.tmp/doc-scenarios/',
           startPage: '/api',
           scripts: ['angular.js'],
           styles: [],
@@ -101,6 +103,8 @@ module.exports = function(grunt) {
     });
 
     ngdoc.merge(reader.docs);
+    
+    grunt.file.write(path.join(options.scenarioDest, 'doc-' + section + '.spec.js'), ngdoc.scenarios(reader.docs, options.testingUrlPrefix));
 
     reader.docs.forEach(function(doc){
       // this hack is here because on OSX angular.module and angular.Module map to the same file.
